@@ -7,6 +7,7 @@ function App() {
 
   const [time, setTime] = useState(0)
   const [timerOn, setTimerOn] = useState(false)
+  const [array, setArray] = useState([])
 
   useEffect(() => {
       let interval = null;
@@ -22,6 +23,29 @@ function App() {
       return () => clearInterval(interval)
 
   }, [timerOn])
+
+
+  useEffect(() => {
+
+    if (timerOn === false){
+        
+    }
+  })
+
+
+  
+
+
+ function Timer(){
+
+  const minutes = ("0" + Math.floor((time / 60000) % 60)).slice(-2)
+  const secondes = ("0" + Math.floor((time / 1000) % 60)).slice(-2)
+  const millisecondes = ("0" + ((time / 10) % 100)).slice(-2)
+
+  return minutes + ":" + secondes + ":" +  millisecondes
+
+
+ }
   
 
   return (
@@ -30,9 +54,10 @@ function App() {
           Pomodoro Timer
         </p>
         <div className='time'>
-          <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+          {/* <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span> */}
+          <Timer/>
         </div>
         <div className='counter'>
         <div>
@@ -48,16 +73,19 @@ function App() {
           )}&nbsp;
 
           {!timerOn && time > 0 &&(
-                <button class="button" onClick={() => setTime(0)}>Reset</button>
+                <button class="button" onClick={() => setTime(0)}>Reset</button> //deux ecouteurs à mettre un pour remettre à 0 et un autre pour récupérer la valeur et envoyer
           )}
 
         </div>
         </div>
+        <div className='affichage-text'>
         <p className="date-text">Date</p>
         <p className="score-text">Score</p>
+        </div>
         <div className='score'>
-         
         <hr className='barre'></hr>
+        
+        
 
         </div>
     </>
