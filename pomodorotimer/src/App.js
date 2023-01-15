@@ -72,6 +72,7 @@ function App() {
       <div className="PomodoroTimer">
           Pomodoro Timer
         </div>
+        
         <div className='time'>
           <Timer/>
         </div>
