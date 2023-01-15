@@ -2,12 +2,16 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 
-
 function App() {
 
   const [time, setTime] = useState(0)
+  const date = useState(`${new Date()}`);
   const [timerOn, setTimerOn] = useState(false)
-  const [array, setArray] = useState([])
+  const stocktime = useState([])
+  
+ 
+
+  
 
   useEffect(() => {
       let interval = null;
@@ -24,17 +28,26 @@ function App() {
 
   }, [timerOn])
 
+  // console.log(time) on doit récuperer ca
 
-  useEffect(() => {
+  const handleOnStart = () => {
+    setTimerOn(true)
+  }
 
-    if (timerOn === false){
-        
-    }
-  })
-
-
+  const handleOnStock = () => {
+   setTimerOn(false)
+   const a = localStorage.setItem('id', JSON.stringify(time))
+   const b = localStorage.setItem('date', JSON.stringify(date))
+   setTime(0)
+   stocktime.push(a,b)
+   
+    //setStocktime([...stocktime, { time: time, date: date}]) 
+      
   
+  }
 
+
+  //comprendre le useffect et l'incrémentation dans le localstorage
 
  function Timer(){
 
@@ -42,54 +55,61 @@ function App() {
   const secondes = ("0" + Math.floor((time / 1000) % 60)).slice(-2)
   const millisecondes = ("0" + ((time / 10) % 100)).slice(-2)
 
-  return minutes + ":" + secondes + ":" +  millisecondes
+  return `${minutes} : ${secondes} : ${millisecondes}`
+
 
 
  }
-  
+
+//  console.log(time)
+
+
+ 
+ console.log("PLEIN",localStorage)
 
   return (
     <>
-      <p className="PomodoroTimer">
+      <div className="PomodoroTimer">
           Pomodoro Timer
-        </p>
+        </div>
         <div className='time'>
-          {/* <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span> */}
           <Timer/>
         </div>
         <div className='counter'>
         <div>
           {!timerOn && time === 0 && (
-                <button class="button" onClick={() => setTimerOn(true)}>Start</button>
+                <button className="button" onClick={handleOnStart}>Start</button>
           )}
-          {timerOn && (
-                <button class="button" onClick={() => setTimerOn(false)}>Stop</button>
+          {timerOn &&  (
+                <button className="button" onClick={handleOnStock}>Stop</button>
+                
           )}
 
-          {!timerOn && time !== 0 &&(
-                <button class="button" onClick={() => setTimerOn(true)}>Resume</button>
-          )}&nbsp;
-
-          {!timerOn && time > 0 &&(
-                <button class="button" onClick={() => setTime(0)}>Reset</button> //deux ecouteurs à mettre un pour remettre à 0 et un autre pour récupérer la valeur et envoyer
-          )}
 
         </div>
         </div>
         <div className='affichage-text'>
-        <p className="date-text">Date</p>
-        <p className="score-text">Score</p>
-        </div>
-        <div className='score'>
-        <hr className='barre'></hr>
-        
-        
+          <p className="date-text">Date</p>
+          <p className="score-text">Time</p>
+            </div>
+            <div className='score'>
+            <hr className='barre'></hr>
+              <p className="affichage-date">
+              {/* {stocktime.map(i => (
+                  <p key={i}> <i/>{date} </p>
+                ))} */}
+              </p>
+            <p className='affichage-score'>
+              {/* {stocktime.map(i => (
+                <p key={i}> <p> {time} </p></p>
+              ))} */}
 
-        </div>
+            </p>
+
+            </div>
     </>
   );
 }
 
 export default App;
+
