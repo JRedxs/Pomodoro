@@ -39,12 +39,15 @@ function App() {
   const minutes = ("0" + Math.floor((time / 60000) % 60)).slice(-2)
   const secondes = ("0" + Math.floor((time / 1000) % 60)).slice(-2)
   const millisecondes = ("0" + ((time / 10) % 100)).slice(-2)
+  const totalTime = minutes+ " : " + secondes + " : " +millisecondes
 
-  return `${minutes} : ${secondes} : ${millisecondes}`
+  return `${totalTime}`
+  // return `${minutes} : ${secondes} : ${millisecondes}`
 
 
 
  }
+
 
   return (
     <>
